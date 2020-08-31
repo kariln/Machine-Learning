@@ -11,6 +11,7 @@ Linear regression with ordinary least squares (OLS)
 
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 #reads the data from the csv file with pandas and converts the Pandas DataFrame to a Numpy Array
 data_train2 = pd.read_csv('dataset/regression/train_2d_reg_data.csv').to_numpy()
@@ -36,3 +37,13 @@ print(N)
 #Finds error in model1
 E1_train = 1/N*abs(np.multiply(x1_train,w1)-y_train)**2
 #E1_test = 1/N*abs(np.multiply(x1_test,w1)-y_test)**2 #må sørge for like størrelse
+
+#Regression line
+h = np.multiply(w1.T,x1_train)
+print(h)
+
+#Plotting the training set with the regression line
+# Ploting Line
+plt.plot(x1_train, h, color='#58b970', label='Regression Line')
+# Ploting Scatter Points
+plt.scatter(x1_train, y_train, c='#ef5423', label='Scatter Plot')
