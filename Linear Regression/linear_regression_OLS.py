@@ -29,21 +29,27 @@ y_test = data_test2[:,2];
 
 
 #Finds weights in model1
-w1 = np.multiply(np.multiply(x1_train.T,y_train),(np.multiply(x1_train.T,x1_train)));
-print(len(w1))
-print(len(x1_test))
-print(N)
+w1 = np.dot(x1_train.T,y_train)/(np.dot(x1_train.T,x1_train));
 
 #Finds error in model1
 E1_train = 1/N*abs(np.multiply(x1_train,w1)-y_train)**2
-#E1_test = 1/N*abs(np.multiply(x1_test,w1)-y_test)**2 #må sørge for like størrelse
+#print(E1_train)
+E1_test = 1/N*abs(np.multiply(x1_test,w1)-y_test)**2 #må sørge for like størrelse
+#print(E1_test)
 
 #Regression line
 h = np.multiply(w1.T,x1_train)
-print(h)
+#print(h)
 
 #Plotting the training set with the regression line
+fig = plt.figure()
+
 # Ploting Line
 plt.plot(x1_train, h, color='#58b970', label='Regression Line')
 # Ploting Scatter Points
 plt.scatter(x1_train, y_train, c='#ef5423', label='Scatter Plot')
+        
+plt.title('Linear regression')
+plt.xlabel('X')
+plt.ylabel('Y')
+fig.savefig('linear_regression.png', dpi=fig.dpi)
