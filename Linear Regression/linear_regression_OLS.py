@@ -32,9 +32,9 @@ y_test = data_test2[:,2];
 w1 = np.dot(x1_train.T,y_train)/(np.dot(x1_train.T,x1_train));
 
 #Finds error in model1
-E1_train = 1/N*abs(np.multiply(x1_train,w1)-y_train)**2
+E1_train = 1/N*(abs(np.dot(x1_train,w1)-y_train)**2).np.sum()
 #print(E1_train)
-E1_test = 1/N*abs(np.multiply(x1_test,w1)-y_test)**2 #må sørge for like størrelse
+E1_test = 1/N*(abs(np.multiply(x1_test,w1)-y_test)**2).np.sum()
 #print(E1_test)
 
 #Regression line
