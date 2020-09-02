@@ -38,11 +38,13 @@ class linearRegression():
         
         #calculates and sets weights on object. Trains the model.
         def setWeights(self,X,Y):
-            self.weights = np.dot(np.linalg.inv(np.dot(X.T,X)),np.dot(X.T,Y));
+            inverse = np.linalg.inv(X.T.dot(X))
+            self.weights = (inverse.dot(X.T)).dot(Y);
         
         #calculates Y with weights and X
         def predictor(self,X):
-            return np.array(np.dot(self.weights,X.T))
+            return np.dot(np.array([self.weights]),(X.T))
+
         
         #calculates the error with ordinary least square, OLS
         def calc_E (self,X,Y,weights):
@@ -51,21 +53,28 @@ class linearRegression():
 #train new model:
 model = linearRegression()
 model.setWeights(x_train,y_train)
+[weight_x1,weight_x2, bias] = model.getWeights()
 
-#Plotting the training set with the regression line
-train_x1 = plt.figure()
-y_train = model.predictor(x_train)
-y_test = model.predictor(x_test)
 
-# Ploting Line
-plt.plot(x1, y1, color='#58b970', label='Model')
-# Ploting Scatter Points
-plt.scatter(x1, y1, c='#ef5423', label='Target data')
+#Predicting the train and test data
+y_train_pred = model.predictor(x_train)
+y_test_pred = model.predictor(x_test)
 
-#formatting the plot
-plt.title('Linear regression')
-plt.xlabel('X')
-plt.ylabel('Y')
-leg = plt.legend()
-train_x1.savefig('linear_regression.png', dpi=train.x1.dpi)
+# Plots the results
+fig = plt.figure(figsize=(20,15))
+ax1 = fig.add_subplot(2,1,1)
+ax2 = fig.add_subplot(2,1,2)
+ax1.set_title("Training Predictions",fontsize = 30)
+ax1.set_xlabel("Input",fontsize=25)
+ax1.set_ylabel("Target",fontsize=25)
+ax1.scatter(x_train["x1"],y_train,c='b')
+ax1.plot(x_train["x1"],y_train_pred[0],c="r")
+ax1.legend(["Model","Target data"], prop={'size': 25})
+
+ax2.set_title("Testing Predictions")
+ax2.set_xlabel("Input",fontsize=25)
+ax2.set_ylabel("Target",fontsize=25)
+ax2.scatter(x_test["x1"],y_test,c='b')
+ax2.plot(x_test["x1"],y_test_pred[0])
+
     
