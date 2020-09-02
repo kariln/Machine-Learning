@@ -58,6 +58,7 @@ model.setWeights(x_train,y_train)
 
 #Predicting the train and test data
 y_train_pred = model.predictor(x_train)
+print(y_train_pred.shape)
 y_test_pred = model.predictor(x_test)
 
 # Plots the results
@@ -68,7 +69,7 @@ ax1.set_title("Training Predictions",fontsize = 30)
 ax1.set_xlabel("Input",fontsize=25)
 ax1.set_ylabel("Target",fontsize=25)
 ax1.scatter(x_train["x1"],y_train,c='b')
-ax1.plot(x_train["x1"],y_train_pred[0],c="r")
+ax1.scatter(x_train["x1"],y_train_pred[0],c="r")
 ax1.legend(["Model","Target data"], prop={'size': 25})
 
 ax2.set_title("Testing Predictions")
@@ -77,4 +78,5 @@ ax2.set_ylabel("Target",fontsize=25)
 ax2.scatter(x_test["x1"],y_test,c='b')
 ax2.plot(x_test["x1"],y_test_pred[0])
 
+fig.savefig('linear_regression:obj.png', dpi=fig.dpi)
     
