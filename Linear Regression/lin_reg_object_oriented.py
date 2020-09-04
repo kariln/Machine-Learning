@@ -43,22 +43,20 @@ class linearRegression():
         
         #calculates Y with weights and X
         def predictor(self,X):
-            return np.dot(np.array([self.weights]),(X.T))
+            return np.array([self.weights]).dot(X.T)
 
         
         #calculates the error with ordinary least square, OLS
         def calc_E (self,X,Y,weights):
-            return (((X.np.dot(weights)-Y)**2)).np.sum()/(len(Y))
+            return (((X.dot(weights)-Y)**2)).sum()/(len(Y))
 
 #train new model:
 model = linearRegression()
 model.setWeights(x_train,y_train)
 [weight_x1,weight_x2, bias] = model.getWeights()
 
-
 #Predicting the train and test data
 y_train_pred = model.predictor(x_train)
-print(y_train_pred.shape)
 y_test_pred = model.predictor(x_test)
 
 # Plots the results
@@ -69,14 +67,24 @@ ax1.set_title("Training Predictions",fontsize = 30)
 ax1.set_xlabel("Input",fontsize=25)
 ax1.set_ylabel("Target",fontsize=25)
 ax1.scatter(x_train["x1"],y_train,c='b')
-ax1.scatter(x_train["x1"],y_train_pred[0],c="r")
+ax1.plot(x_train["x1"].sort_values(ascending=True),np.sort(y_train_pred[0]),c="r")
 ax1.legend(["Model","Target data"], prop={'size': 25})
 
 ax2.set_title("Testing Predictions")
 ax2.set_xlabel("Input",fontsize=25)
 ax2.set_ylabel("Target",fontsize=25)
 ax2.scatter(x_test["x1"],y_test,c='b')
-ax2.plot(x_test["x1"],y_test_pred[0])
+ax2.plot(x_test["x1"].sort_values(ascending=True),np.sort(y_test_pred[0]))
 
+plt.show(fig)
 fig.savefig('linear_regression:obj.png', dpi=fig.dpi)
-    
+
+#Loads 1D dataset
+train = pd.read_csv('dataset/regression/train_1d_reg_data.csv')
+test = pd.read_csv('dataset/regression/test_1d_reg_data.csv')
+
+x_train = np.array(train["x1"])
+y_train = train["y"]
+print(np.array(x_train).shape)
+#y_train_pred = model.predictor(x_train)
+#y_test_pred = model.predictor(test["x1"])
